@@ -2,121 +2,105 @@
 <html lang="es">
 <head>
   <meta charset="UTF-8">
-  <title>Malla Interactiva - Ingeniería Civil</title>
+  <title>Malla Interactiva Ingeniería Comercial</title>
   <link rel="stylesheet" href="estilos.css">
 </head>
 <body>
-  <header>
-    <h1>Malla Interactiva - Ingeniería Civil UBB</h1>
-    <div class="selector-tema">
-      <label for="tema">Tema:</label>
-      <select id="tema">
-        <option value="verde">Verde</option>
-        <option value="rosado">Rosado</option>
-        <option value="azul">Azul</option>
-      </select>
-    </div>
-  </header>
+  <h1>Malla Curricular Ingeniería Comercial</h1>
+  <div class="malla">
 
-<main class="malla">
-  <section>
-    <h2>Primer Año - Primer Semestre</h2>
-    <div class="ramo" id="admin_gral" data-prerrequisitos="">Administración General</div>
-    <div class="ramo" id="derecho" data-prerrequisitos="">Derecho Empresarial</div>
-    <div class="ramo" id="algebra1" data-prerrequisitos="">Álgebra 1</div>
-    <div class="ramo" id="hab_soc" data-prerrequisitos="">Habilidades Sociales</div>
-    <div class="ramo" id="conta1" data-prerrequisitos="">Contabilidad 1</div>
-    <div class="ramo" id="fi1" data-prerrequisitos="">Formación Integral 1</div>
-  </section>
+    <!-- AÑOS Y SEMESTRES -->
+       <section>
+      <h2>Segundo Año - Tercer Semestre</h2>
+      <div class="semestre">
+        <div class="ramo bloqueado" data-id="marketing1" data-abre="marketing2,comercio">Marketing 1</div>
+        <div class="ramo bloqueado" data-id="calculo2" data-abre="micro2">Cálculo 2</div>
+        <div class="ramo bloqueado" data-id="micro1" data-abre="micro2,gfcp">Microeconomía 1</div>
+        <div class="ramo bloqueado" data-id="costos">Costos</div>
+        <div class="ramo bloqueado" data-id="ingles2" data-abre="ingles-neg1,ingles3,ingles-neg3">Inglés 2</div>
+        <div class="ramo" data-id="formacion2">Formación Integral Inst. 2</div>
+      </div>
+    </section>
 
-  <section>
-    <h2>Primer Año - Segundo Semestre</h2>
-    <div class="ramo" id="admin_estrat" data-prerrequisitos="admin_gral">Administración Estratégica</div>
-    <div class="ramo" id="algebra2" data-prerrequisitos="algebra1">Álgebra 2</div>
-    <div class="ramo" id="calculo1" data-prerrequisitos="">Cálculo 1</div>
-    <div class="ramo" id="intro_eco" data-prerrequisitos="">Introducción a la Economía</div>
-    <div class="ramo" id="conta2" data-prerrequisitos="conta1">Contabilidad 2</div>
-    <div class="ramo" id="ingles1" data-prerrequisitos="">Inglés 1</div>
-    <div class="ramo" id="fi2" data-prerrequisitos="">Formación Integral Extra 1</div>
-  </section>
+    <section>
+      <h2>Segundo Año - Cuarto Semestre</h2>
+      <div class="semestre">
+        <div class="ramo bloqueado" data-id="marketing2">Marketing 2</div>
+        <div class="ramo bloqueado" data-id="estadistica1" data-abre="estadistica2">Estadística 1</div>
+        <div class="ramo bloqueado" data-id="macro1" data-abre="macro2">Macroeconomía 1</div>
+        <div class="ramo bloqueado" data-id="micro2">Microeconomía 2</div>
+        <div class="ramo bloqueado" data-id="ingles-neg1">Inglés para Negocios 1</div>
+        <div class="ramo bloqueado" data-id="ingles3">Inglés 3</div>
+      </div>
+    </section>
 
-  <section>
-    <h2>Segundo Año - Tercer Semestre</h2>
-    <div class="ramo" id="marketing1" data-prerrequisitos="admin_estrat">Marketing 1</div>
-    <div class="ramo" id="calculo2" data-prerrequisitos="calculo1">Cálculo 2</div>
-    <div class="ramo" id="micro1" data-prerrequisitos="calculo1,intro_eco">Microeconomía 1</div>
-    <div class="ramo" id="costos" data-prerrequisitos="conta1">Costos</div>
-    <div class="ramo" id="ingles2" data-prerrequisitos="ingles1">Inglés 2</div>
-    <div class="ramo" id="fi3" data-prerrequisitos="">Formación Integral 2</div>
-  </section>
+    <section>
+      <h2>Tercer Año - Quinto Semestre</h2>
+      <div class="semestre">
+        <div class="ramo bloqueado" data-id="grh1" data-abre="grh2">Gestión de Recursos Humanos 1</div>
+        <div class="ramo bloqueado" data-id="sistemas">Sistemas de Información</div>
+        <div class="ramo bloqueado" data-id="estadistica2" data-abre="econometria,produccion">Estadística 2</div>
+        <div class="ramo bloqueado" data-id="macro2" data-abre="economia-int,econometria">Macroeconomía 2</div>
+        <div class="ramo bloqueado" data-id="gfcp" data-abre="mercados,control-gestion">Gestión Financiera de Corto Plazo</div>
+        <div class="ramo bloqueado" data-id="ingles-neg2">Inglés para Negocios 2</div>
+        <div class="ramo" data-id="formacion-extra2">Formación Extraprogramática 2</div>
+      </div>
+    </section>
 
-  <section>
-    <h2>Segundo Año - Cuarto Semestre</h2>
-    <div class="ramo" id="marketing2" data-prerrequisitos="marketing1">Marketing 2</div>
-    <div class="ramo" id="estad1" data-prerrequisitos="algebra2">Estadística 1</div>
-    <div class="ramo" id="macro1" data-prerrequisitos="calculo1,intro_eco">Macroeconomía 1</div>
-    <div class="ramo" id="micro2" data-prerrequisitos="micro1,calculo2">Microeconomía 2</div>
-    <div class="ramo" id="ing_neg1" data-prerrequisitos="ingles2">Inglés Negocios 1</div>
-    <div class="ramo" id="ingles3" data-prerrequisitos="ingles2">Inglés 3</div>
-  </section>
+    <section>
+      <h2>Tercer Año - Sexto Semestre</h2>
+      <div class="semestre">
+        <div class="ramo bloqueado" data-id="comportamiento" data-abre="grh3,desarrollo-org">Comportamiento Organizacional</div>
+        <div class="ramo bloqueado" data-id="econometria">Econometría</div>
+        <div class="ramo bloqueado" data-id="economia-int">Economía Internacional</div>
+        <div class="ramo bloqueado" data-id="mercados" data-abre="formulas">Mercados de Capitales</div>
+        <div class="ramo bloqueado" data-id="ingles-neg3">Inglés para Negocios 3</div>
+        <div class="ramo bloqueado" data-id="practica1">Práctica Profesional 1</div>
+      </div>
+    </section>
 
-  <section>
-    <h2>Tercer Año - Quinto Semestre</h2>
-    <div class="ramo" id="rh1" data-prerrequisitos="admin_estrat">Gestión RH 1</div>
-    <div class="ramo" id="sisinfo" data-prerrequisitos="admin_estrat">Sistemas de Información</div>
-    <div class="ramo" id="estad2" data-prerrequisitos="estad1">Estadística 2</div>
-    <div class="ramo" id="macro2" data-prerrequisitos="macro1">Macroeconomía 2</div>
-    <div class="ramo" id="finanza_c" data-prerrequisitos="conta2,micro1">Gestión Financiera Corto Plazo</div>
-    <div class="ramo" id="ing_neg2" data-prerrequisitos="">Inglés Negocios 2</div>
-    <div class="ramo" id="fi4" data-prerrequisitos="">Formación Integral Extra 2</div>
-  </section>
+    <section>
+      <h2>Cuarto Año - Séptimo Semestre</h2>
+      <div class="semestre">
+        <div class="ramo bloqueado" data-id="comercio">Comercio Exterior</div>
+        <div class="ramo bloqueado" data-id="grh3">Gestión de Recursos Humanos 3</div>
+        <div class="ramo bloqueado" data-id="produccion">Administración de la Producción</div>
+        <div class="ramo bloqueado" data-id="control-gestion" data-abre="dir-estrat1">Control de Gestión</div>
+        <div class="ramo bloqueado" data-id="formulas" data-abre="gflp">Fórmulas y Evaluación de Proyectos</div>
+        <div class="ramo" data-id="formacion-extra3">Formación Extraprogramática 3</div>
+      </div>
+    </section>
 
-  <section>
-    <h2>Tercer Año - Sexto Semestre</h2>
-    <div class="ramo" id="comport_org" data-prerrequisitos="">Comportamiento Organizacional</div>
-    <div class="ramo" id="econometria" data-prerrequisitos="estad2,macro2">Econometría</div>
-    <div class="ramo" id="eco_int" data-prerrequisitos="macro2">Economía Internacional</div>
-    <div class="ramo" id="mercados" data-prerrequisitos="finanza_c">Mercados de Capitales</div>
-    <div class="ramo" id="ing_neg3" data-prerrequisitos="ingles2">Inglés Negocios 3</div>
-    <div class="ramo" id="pp1" data-prerrequisitos="">Práctica Profesional 1</div>
-  </section>
+    <section>
+      <h2>Cuarto Año - Octavo Semestre</h2>
+      <div class="semestre">
+        <div class="ramo bloqueado" data-id="emprendimiento">Emprendimiento</div>
+        <div class="ramo bloqueado" data-id="desarrollo-org">Desarrollo Organizacional</div>
+        <div class="ramo bloqueado" data-id="responsabilidad">Responsabilidad Social</div>
+        <div class="ramo bloqueado" data-id="dir-estrat1" data-abre="dir-estrat2">Dirección Estratégica 1</div>
+        <div class="ramo bloqueado" data-id="gflp">Gestión Financiera Largo Plazo</div>
+        <div class="ramo" data-id="formacion4">Formación Integral Inst. 4</div>
+      </div>
+    </section>
 
-  <section>
-    <h2>Cuarto Año - Séptimo Semestre</h2>
-    <div class="ramo" id="comercio" data-prerrequisitos="marketing1">Comercio Exterior</div>
-    <div class="ramo" id="rh3" data-prerrequisitos="comport_org">Gestión RH 3</div>
-    <div class="ramo" id="prod" data-prerrequisitos="estad2">Administración Producción</div>
-    <div class="ramo" id="control" data-prerrequisitos="finanza_c">Control de Gestión</div>
-    <div class="ramo" id="proyectos" data-prerrequisitos="mercados">Fórmulas y Evaluación Proyectos</div>
-    <div class="ramo" id="fi5" data-prerrequisitos="">Formación Integral Extra 3</div>
-  </section>
+    <section>
+      <h2>Quinto Año - Noveno Semestre</h2>
+      <div class="semestre">
+        <div class="ramo bloqueado" data-id="electivo1">Electivo 1</div>
+        <div class="ramo bloqueado" data-id="electivo2">Electivo 2</div>
+        <div class="ramo bloqueado" data-id="electivo3">Electivo 3</div>
+        <div class="ramo bloqueado" data-id="dir-estrat2">Dirección Estratégica 2</div>
+        <div class="ramo bloqueado" data-id="practica2">Práctica Profesional 2</div>
+        <div class="ramo" data-id="formacion5">Formación Integral Inst. 5</div>
+      </div>
+    </section>
 
-  <section>
-    <h2>Cuarto Año - Octavo Semestre</h2>
-    <div class="ramo" id="emprendimiento" data-prerrequisitos="">Emprendimiento</div>
-    <div class="ramo" id="desarrollo" data-prerrequisitos="comport_org">Desarrollo Organizacional</div>
-    <div class="ramo" id="social" data-prerrequisitos="">Responsabilidad Social</div>
-    <div class="ramo" id="dir1" data-prerrequisitos="control">Dirección Estratégica 1</div>
-    <div class="ramo" id="finanza_l" data-prerrequisitos="proyectos">Gestión Financiera Largo Plazo</div>
-    <div class="ramo" id="fi6" data-prerrequisitos="">Formación Integral 4</div>
-  </section>
-
-  <section>
-    <h2>Quinto Año - Noveno Semestre</h2>
-    <div class="ramo" id="electivo1" data-prerrequisitos="">Electivo 1</div>
-    <div class="ramo" id="electivo2" data-prerrequisitos="">Electivo 2</div>
-    <div class="ramo" id="electivo3" data-prerrequisitos="">Electivo 3</div>
-    <div class="ramo" id="dir2" data-prerrequisitos="dir1">Dirección Estratégica 2</div>
-    <div class="ramo" id="pp2" data-prerrequisitos="">Práctica Profesional 2</div>
-    <div class="ramo" id="fi7" data-prerrequisitos="">Formación Integral 5</div>
-  </section>
-
-  <section>
-    <h2>Quinto Año - Décimo Semestre</h2>
-    <div class="ramo" id="habilitacion" data-prerrequisitos="">Habilitación Profesional</div>
-    <div class="ramo" id="electivo4" data-prerrequisitos="">Electivo 4</div>
-    <div class="ramo" id="electivo5" data-prerrequisitos="">Electivo 5</div>
-    <div class="ramo" id="taller" data-prerrequisitos="">Taller Integrado</div>
-  </section>
-</main>
-
+    <section>
+      <h2>Quinto Año - Décimo Semestre</h2>
+      <div class="semestre">
+        <div class="ramo bloqueado" data-id="habilitacion">Habilitación Profesional</div>
+        <div class="ramo bloqueado" data-id="electivo4">Electivo 4</div>
+        <div class="ramo bloqueado" data-id="electivo5">Electivo 5</div>
+        <div class="ramo bloqueado" data-id="taller">Taller Integrado</div>
+      </div>
+    </section>
