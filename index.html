@@ -18,36 +18,105 @@
     </div>
   </header>
 
-  <main class="malla">
-    <!-- Ejemplo de ramo -->
-    <!-- El ID debe ser único, y los requisitos se ponen con `data-prerrequisitos="id1,id2"` -->
+<main class="malla">
+  <section>
+    <h2>Primer Año - Primer Semestre</h2>
+    <div class="ramo" id="admin_gral" data-prerrequisitos="">Administración General</div>
+    <div class="ramo" id="derecho" data-prerrequisitos="">Derecho Empresarial</div>
+    <div class="ramo" id="algebra1" data-prerrequisitos="">Álgebra 1</div>
+    <div class="ramo" id="hab_soc" data-prerrequisitos="">Habilidades Sociales</div>
+    <div class="ramo" id="conta1" data-prerrequisitos="">Contabilidad 1</div>
+    <div class="ramo" id="fi1" data-prerrequisitos="">Formación Integral 1</div>
+  </section>
 
-    <section>
-      <h2>Primer Año - Primer Semestre</h2>
-      <div class="ramo" id="admin_gral" data-prerrequisitos="">Administración General</div>
-      <div class="ramo" id="derecho" data-prerrequisitos="">Derecho Empresarial</div>
-      <div class="ramo" id="algebra1" data-prerrequisitos="">Álgebra 1</div>
-      <div class="ramo" id="hab_soc" data-prerrequisitos="">Habilidades Sociales</div>
-      <div class="ramo" id="conta1" data-prerrequisitos="">Contabilidad 1</div>
-      <div class="ramo" id="fi1" data-prerrequisitos="">Formación Integral 1</div>
-    </section>
+  <section>
+    <h2>Primer Año - Segundo Semestre</h2>
+    <div class="ramo" id="admin_estrat" data-prerrequisitos="admin_gral">Administración Estratégica</div>
+    <div class="ramo" id="algebra2" data-prerrequisitos="algebra1">Álgebra 2</div>
+    <div class="ramo" id="calculo1" data-prerrequisitos="">Cálculo 1</div>
+    <div class="ramo" id="intro_eco" data-prerrequisitos="">Introducción a la Economía</div>
+    <div class="ramo" id="conta2" data-prerrequisitos="conta1">Contabilidad 2</div>
+    <div class="ramo" id="ingles1" data-prerrequisitos="">Inglés 1</div>
+    <div class="ramo" id="fi2" data-prerrequisitos="">Formación Integral Extra 1</div>
+  </section>
 
-    <section>
-      <h2>Primer Año - Segundo Semestre</h2>
-      <div class="ramo" id="admin_estrat" data-prerrequisitos="admin_gral">Administración Estratégica</div>
-      <div class="ramo" id="algebra2" data-prerrequisitos="algebra1">Álgebra 2</div>
-      <div class="ramo" id="calculo1" data-prerrequisitos="">Cálculo 1</div>
-      <div class="ramo" id="intro_eco" data-prerrequisitos="">Introducción a la Economía</div>
-      <div class="ramo" id="conta2" data-prerrequisitos="conta1">Contabilidad 2</div>
-      <div class="ramo" id="ingles1" data-prerrequisitos="">Inglés 1</div>
-      <div class="ramo" id="fi2" data-prerrequisitos="">Formación Integral Actividad Extra 1</div>
-    </section>
+  <section>
+    <h2>Segundo Año - Tercer Semestre</h2>
+    <div class="ramo" id="marketing1" data-prerrequisitos="admin_estrat">Marketing 1</div>
+    <div class="ramo" id="calculo2" data-prerrequisitos="calculo1">Cálculo 2</div>
+    <div class="ramo" id="micro1" data-prerrequisitos="calculo1,intro_eco">Microeconomía 1</div>
+    <div class="ramo" id="costos" data-prerrequisitos="conta1">Costos</div>
+    <div class="ramo" id="ingles2" data-prerrequisitos="ingles1">Inglés 2</div>
+    <div class="ramo" id="fi3" data-prerrequisitos="">Formación Integral 2</div>
+  </section>
 
-    <!-- Continúa agregando secciones y ramos como los de arriba, siguiendo el mismo formato -->
+  <section>
+    <h2>Segundo Año - Cuarto Semestre</h2>
+    <div class="ramo" id="marketing2" data-prerrequisitos="marketing1">Marketing 2</div>
+    <div class="ramo" id="estad1" data-prerrequisitos="algebra2">Estadística 1</div>
+    <div class="ramo" id="macro1" data-prerrequisitos="calculo1,intro_eco">Macroeconomía 1</div>
+    <div class="ramo" id="micro2" data-prerrequisitos="micro1,calculo2">Microeconomía 2</div>
+    <div class="ramo" id="ing_neg1" data-prerrequisitos="ingles2">Inglés Negocios 1</div>
+    <div class="ramo" id="ingles3" data-prerrequisitos="ingles2">Inglés 3</div>
+  </section>
 
-  </main>
+  <section>
+    <h2>Tercer Año - Quinto Semestre</h2>
+    <div class="ramo" id="rh1" data-prerrequisitos="admin_estrat">Gestión RH 1</div>
+    <div class="ramo" id="sisinfo" data-prerrequisitos="admin_estrat">Sistemas de Información</div>
+    <div class="ramo" id="estad2" data-prerrequisitos="estad1">Estadística 2</div>
+    <div class="ramo" id="macro2" data-prerrequisitos="macro1">Macroeconomía 2</div>
+    <div class="ramo" id="finanza_c" data-prerrequisitos="conta2,micro1">Gestión Financiera Corto Plazo</div>
+    <div class="ramo" id="ing_neg2" data-prerrequisitos="">Inglés Negocios 2</div>
+    <div class="ramo" id="fi4" data-prerrequisitos="">Formación Integral Extra 2</div>
+  </section>
 
-  <script src="script.js"></script>
-</body>
-</html>
+  <section>
+    <h2>Tercer Año - Sexto Semestre</h2>
+    <div class="ramo" id="comport_org" data-prerrequisitos="">Comportamiento Organizacional</div>
+    <div class="ramo" id="econometria" data-prerrequisitos="estad2,macro2">Econometría</div>
+    <div class="ramo" id="eco_int" data-prerrequisitos="macro2">Economía Internacional</div>
+    <div class="ramo" id="mercados" data-prerrequisitos="finanza_c">Mercados de Capitales</div>
+    <div class="ramo" id="ing_neg3" data-prerrequisitos="ingles2">Inglés Negocios 3</div>
+    <div class="ramo" id="pp1" data-prerrequisitos="">Práctica Profesional 1</div>
+  </section>
+
+  <section>
+    <h2>Cuarto Año - Séptimo Semestre</h2>
+    <div class="ramo" id="comercio" data-prerrequisitos="marketing1">Comercio Exterior</div>
+    <div class="ramo" id="rh3" data-prerrequisitos="comport_org">Gestión RH 3</div>
+    <div class="ramo" id="prod" data-prerrequisitos="estad2">Administración Producción</div>
+    <div class="ramo" id="control" data-prerrequisitos="finanza_c">Control de Gestión</div>
+    <div class="ramo" id="proyectos" data-prerrequisitos="mercados">Fórmulas y Evaluación Proyectos</div>
+    <div class="ramo" id="fi5" data-prerrequisitos="">Formación Integral Extra 3</div>
+  </section>
+
+  <section>
+    <h2>Cuarto Año - Octavo Semestre</h2>
+    <div class="ramo" id="emprendimiento" data-prerrequisitos="">Emprendimiento</div>
+    <div class="ramo" id="desarrollo" data-prerrequisitos="comport_org">Desarrollo Organizacional</div>
+    <div class="ramo" id="social" data-prerrequisitos="">Responsabilidad Social</div>
+    <div class="ramo" id="dir1" data-prerrequisitos="control">Dirección Estratégica 1</div>
+    <div class="ramo" id="finanza_l" data-prerrequisitos="proyectos">Gestión Financiera Largo Plazo</div>
+    <div class="ramo" id="fi6" data-prerrequisitos="">Formación Integral 4</div>
+  </section>
+
+  <section>
+    <h2>Quinto Año - Noveno Semestre</h2>
+    <div class="ramo" id="electivo1" data-prerrequisitos="">Electivo 1</div>
+    <div class="ramo" id="electivo2" data-prerrequisitos="">Electivo 2</div>
+    <div class="ramo" id="electivo3" data-prerrequisitos="">Electivo 3</div>
+    <div class="ramo" id="dir2" data-prerrequisitos="dir1">Dirección Estratégica 2</div>
+    <div class="ramo" id="pp2" data-prerrequisitos="">Práctica Profesional 2</div>
+    <div class="ramo" id="fi7" data-prerrequisitos="">Formación Integral 5</div>
+  </section>
+
+  <section>
+    <h2>Quinto Año - Décimo Semestre</h2>
+    <div class="ramo" id="habilitacion" data-prerrequisitos="">Habilitación Profesional</div>
+    <div class="ramo" id="electivo4" data-prerrequisitos="">Electivo 4</div>
+    <div class="ramo" id="electivo5" data-prerrequisitos="">Electivo 5</div>
+    <div class="ramo" id="taller" data-prerrequisitos="">Taller Integrado</div>
+  </section>
+</main>
 
