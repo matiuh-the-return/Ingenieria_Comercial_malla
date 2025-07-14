@@ -9,30 +9,37 @@ document.addEventListener('DOMContentLoaded', () => {
     console.error('Error al leer progreso:', e);
   }
 
-  // Función para obtener prerrequisitos de un ramo
+  // Obtener prerrequisitos: quienes me tienen en su data-abre
   function getPrerequisitos(ramo) {
-    if (!ramo.dataset.abre) return [];
-    return ramo.dataset.abre.split(',')
-      .map(id => id.trim())
-      .filter(id => id);
+    const id = ramo.dataset.id;
+    const prerequisitos = Array.from(ramos).filter(r => {
+      const abre = r.dataset.abre?.split(',').map(s => s.trim()) || [];
+      return abre.includes(id);
+    }).map(r => r.dataset.id);
+    return prerequisitos;
   }
 
-  // Función para validar estado inicial de los ramos
+  // Obtener ramos que dependen de un ramo dado
+  function getDependientes(id) {
+    return Array.from(ramos).filter(ramo => {
+      const prereqs = getPrerequisitos(ramo);
+      return prereqs.includes(id);
+    });
+  }
+
+  // Validar estados iniciales de todos los ramos
   function validarEstadosIniciales() {
     ramos.forEach(ramo => {
-      const tienePrerrequisitos = ramo.dataset.abre && ramo.dataset.abre.trim() !== '';
-      
-      // Solo validar bloqueo si tiene prerrequisitos declarados
+      const prerequisitos = getPrerequisitos(ramo);
+      const tienePrerrequisitos = prerequisitos.length > 0;
+
       if (tienePrerrequisitos) {
-        const prerequisitos = getPrerequisitos(ramo);
         const todosAprobados = prerequisitos.every(id => {
           const req = document.querySelector(`.ramo[data-id="${id}"]`);
           return req && req.classList.contains('aprobado');
         });
-        
         ramo.classList.toggle('bloqueado', !todosAprobados);
       } else {
-        // Ramo sin prerrequisitos nunca debe estar bloqueado
         ramo.classList.remove('bloqueado');
       }
     });
@@ -46,77 +53,65 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   });
 
-  // Validar estados iniciales
+  // Validar estados luego de cargar progreso
   validarEstadosIniciales();
 
-  // Función para obtener ramos dependientes
-  function getDependientes(id) {
-    return Array.from(ramos).filter(ramo => {
-      const prereqs = getPrerequisitos(ramo);
-      return prereqs.includes(id);
-    });
-  }
-
-  // Manejo de clic
+  // Manejo de clic en ramos
   ramos.forEach(ramo => {
     ramo.addEventListener('click', () => {
-      // No hacer nada si está bloqueado
       if (ramo.classList.contains('bloqueado')) return;
-      
+
       if (ramo.classList.contains('aprobado')) {
         desaprobarRamo(ramo);
       } else {
         aprobarRamo(ramo);
       }
-      
+
       guardarProgreso();
     });
   });
 
+  // Aprobar un ramo
   function aprobarRamo(ramo) {
     ramo.classList.add('aprobado');
-    
-    // Desbloquear ramos que dependan de este
+
     const id = ramo.dataset.id;
     const dependientes = getDependientes(id);
-    
+
     dependientes.forEach(destino => {
       const prereqs = getPrerequisitos(destino);
       const todosAprobados = prereqs.every(reqId => {
         const req = document.querySelector(`.ramo[data-id="${reqId}"]`);
         return req && req.classList.contains('aprobado');
       });
-      
       if (todosAprobados) {
         destino.classList.remove('bloqueado');
       }
     });
   }
 
+  // Desaprobar un ramo y volver a bloquear los que dependan de él
   function desaprobarRamo(ramo) {
     const id = ramo.dataset.id;
     ramo.classList.remove('aprobado');
-    
-    // Bloquear y desaprobar ramos dependientes
+
     const dependientes = getDependientes(id);
-    
     dependientes.forEach(destino => {
-      // Solo si estaba aprobado
-      if (destino.classList.contains('aprobado')) {
+      const prereqs = getPrerequisitos(destino);
+      const todosAprobados = prereqs.every(reqId => {
+        const req = document.querySelector(`.ramo[data-id="${reqId}"]`);
+        return req && req.classList.contains('aprobado');
+      });
+
+      if (!todosAprobados) {
         destino.classList.add('bloqueado');
-        desaprobarRamo(destino); // Recursivo para dependientes
-      } else {
-        const prereqs = getPrerequisitos(destino);
-        const todosAprobados = prereqs.every(reqId => {
-          const req = document.querySelector(`.ramo[data-id="${reqId}"]`);
-          return req && req.classList.contains('aprobado');
-        });
-        
-        destino.classList.toggle('bloqueado', !todosAprobados);
+        destino.classList.remove('aprobado');
+        desaprobarRamo(destino); // Recursivo
       }
     });
   }
 
+  // Guardar progreso en localStorage
   function guardarProgreso() {
     try {
       const aprobados = Array.from(document.querySelectorAll('.ramo.aprobado'))
@@ -126,5 +121,14 @@ document.addEventListener('DOMContentLoaded', () => {
     } catch (e) {
       console.error('Error al guardar progreso:', e);
     }
+  }
+
+  // Botón de reset si existe
+  const resetBtn = document.getElementById('resetear');
+  if (resetBtn) {
+    resetBtn.addEventListener('click', () => {
+      localStorage.removeItem('ramosAprobados');
+      location.reload();
+    });
   }
 });
