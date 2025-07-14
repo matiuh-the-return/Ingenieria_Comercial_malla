@@ -1,8 +1,7 @@
-// Esperar a que el DOM esté listo
 document.addEventListener('DOMContentLoaded', () => {
   const ramos = document.querySelectorAll('.ramo');
 
-  // Leer progreso guardado con manejo de errores
+  // Leer progreso guardado
   let progreso = [];
   try {
     progreso = JSON.parse(localStorage.getItem('ramosAprobados')) || [];
@@ -10,34 +9,32 @@ document.addEventListener('DOMContentLoaded', () => {
     console.error('Error al leer progreso:', e);
   }
 
-  // Validación inicial de ramos bloqueados
-  function validarBloqueosIniciales() {
-    document.querySelectorAll('.ramo').forEach(ramo => {
-      const prereqs = getPrerequisitos(ramo);
+  // Función para obtener prerrequisitos de un ramo
+  function getPrerequisitos(ramo) {
+    if (!ramo.dataset.abre) return [];
+    return ramo.dataset.abre.split(',')
+      .map(id => id.trim())
+      .filter(id => id);
+  }
+
+  // Función para validar estado inicial de los ramos
+  function validarEstadosIniciales() {
+    ramos.forEach(ramo => {
+      const tienePrerrequisitos = ramo.dataset.abre && ramo.dataset.abre.trim() !== '';
       
-      if (prereqs.length > 0) {
-        const todosAprobados = prereqs.every(id => {
+      // Solo validar bloqueo si tiene prerrequisitos declarados
+      if (tienePrerrequisitos) {
+        const prerequisitos = getPrerequisitos(ramo);
+        const todosAprobados = prerequisitos.every(id => {
           const req = document.querySelector(`.ramo[data-id="${id}"]`);
           return req && req.classList.contains('aprobado');
         });
         
         ramo.classList.toggle('bloqueado', !todosAprobados);
+      } else {
+        // Ramo sin prerrequisitos nunca debe estar bloqueado
+        ramo.classList.remove('bloqueado');
       }
-    });
-  }
-
-  // Obtener prerequisitos de un ramo
-  function getPrerequisitos(ramo) {
-    return ramo.dataset.abre?.split(',')
-      .map(id => id.trim())
-      .filter(id => id) || [];
-  }
-
-  // Obtener ramos que dependen de un ID específico
-  function getDependientes(id) {
-    return Array.from(document.querySelectorAll('.ramo')).filter(r => {
-      const abre = getPrerequisitos(r);
-      return abre.includes(id);
     });
   }
 
@@ -45,45 +42,53 @@ document.addEventListener('DOMContentLoaded', () => {
   progreso.forEach(id => {
     const ramo = document.querySelector(`.ramo[data-id="${id}"]`);
     if (ramo) {
-      aprobarRamo(ramo, false);
+      ramo.classList.add('aprobado');
     }
   });
 
-  // Validar bloqueos iniciales
-  validarBloqueosIniciales();
+  // Validar estados iniciales
+  validarEstadosIniciales();
 
-  // Lógica al hacer clic
+  // Función para obtener ramos dependientes
+  function getDependientes(id) {
+    return Array.from(ramos).filter(ramo => {
+      const prereqs = getPrerequisitos(ramo);
+      return prereqs.includes(id);
+    });
+  }
+
+  // Manejo de clic
   ramos.forEach(ramo => {
     ramo.addEventListener('click', () => {
+      // No hacer nada si está bloqueado
       if (ramo.classList.contains('bloqueado')) return;
-
+      
       if (ramo.classList.contains('aprobado')) {
         desaprobarRamo(ramo);
       } else {
-        aprobarRamo(ramo, true);
+        aprobarRamo(ramo);
       }
-
+      
       guardarProgreso();
     });
   });
 
-  function aprobarRamo(ramo, desbloquearDependientes = true) {
+  function aprobarRamo(ramo) {
     ramo.classList.add('aprobado');
-
-    if (!desbloquearDependientes) return;
-
-    const abre = getPrerequisitos(ramo);
-    abre.forEach(destinoId => {
-      const destino = document.querySelector(`.ramo[data-id="${destinoId}"]`);
-      if (destino) {
-        const todosAprobados = getPrerequisitos(destino).every(id => {
-          const req = document.querySelector(`.ramo[data-id="${id}"]`);
-          return req && req.classList.contains('aprobado');
-        });
-        
-        if (todosAprobados) {
-          destino.classList.remove('bloqueado');
-        }
+    
+    // Desbloquear ramos que dependan de este
+    const id = ramo.dataset.id;
+    const dependientes = getDependientes(id);
+    
+    dependientes.forEach(destino => {
+      const prereqs = getPrerequisitos(destino);
+      const todosAprobados = prereqs.every(reqId => {
+        const req = document.querySelector(`.ramo[data-id="${reqId}"]`);
+        return req && req.classList.contains('aprobado');
+      });
+      
+      if (todosAprobados) {
+        destino.classList.remove('bloqueado');
       }
     });
   }
@@ -91,23 +96,23 @@ document.addEventListener('DOMContentLoaded', () => {
   function desaprobarRamo(ramo) {
     const id = ramo.dataset.id;
     ramo.classList.remove('aprobado');
-
-    // Buscar todos los ramos que dependen de este
+    
+    // Bloquear y desaprobar ramos dependientes
     const dependientes = getDependientes(id);
     
     dependientes.forEach(destino => {
-      // Verificar si todos los prerequisitos están aprobados
-      const requisitosIds = getPrerequisitos(destino);
-      const todosAprobados = requisitosIds.every(reqId => {
-        const req = document.querySelector(`.ramo[data-id="${reqId}"]`);
-        return req && req.classList.contains('aprobado');
-      });
-      
-      if (!todosAprobados) {
+      // Solo si estaba aprobado
+      if (destino.classList.contains('aprobado')) {
         destino.classList.add('bloqueado');
-        if (destino.classList.contains('aprobado')) {
-          desaprobarRamo(destino); // Recursividad para dependientes aprobados
-        }
+        desaprobarRamo(destino); // Recursivo para dependientes
+      } else {
+        const prereqs = getPrerequisitos(destino);
+        const todosAprobados = prereqs.every(reqId => {
+          const req = document.querySelector(`.ramo[data-id="${reqId}"]`);
+          return req && req.classList.contains('aprobado');
+        });
+        
+        destino.classList.toggle('bloqueado', !todosAprobados);
       }
     });
   }
@@ -116,7 +121,7 @@ document.addEventListener('DOMContentLoaded', () => {
     try {
       const aprobados = Array.from(document.querySelectorAll('.ramo.aprobado'))
         .map(r => r.dataset.id)
-        .filter(id => id); // Filtrar IDs válidos
+        .filter(id => id);
       localStorage.setItem('ramosAprobados', JSON.stringify(aprobados));
     } catch (e) {
       console.error('Error al guardar progreso:', e);
